@@ -93,4 +93,4 @@ int main()
 	CreateTableCommand Employees("Employees", 2, vector1, INTEGER);
 	ValidateCommandCreateTable ValidateEmployees(Employees); //In this instance of the class we will validate the class provided by the user (CreateTableCommand)
 	ValidateEmployees.CommandType();
-}
+} 
