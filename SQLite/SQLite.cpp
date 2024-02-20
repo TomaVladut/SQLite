@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-
+using namespace std;
 enum DataTypes {INTEGER, FLOAT, TEXT};
 
 //Each command class will extend the validation class for itself which will be implemented by the **validate command class** that inheirts an abstract method
@@ -81,7 +81,7 @@ public:
 
 	}
 	void CommandType() {
-		if (this->ColumnType != TEXT)	throw "e";
+		if (this->ColumnType != INTEGER)	throw "e";
 		cout << this->ColumnType;
 	}
 };
