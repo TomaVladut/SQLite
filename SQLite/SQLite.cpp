@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
-#include <cmath>
 using namespace std;
-
-enum DataTypes {INTEGER, FLOAT, TEXT};
+enum DataTypes { INTEGER, FLOAT, TEXT };
 
 //Each command class will extend the validation class for itself which will be implemented by the **validate command class** that inheirts an abstract method
 //(command type; Validate command)
@@ -13,7 +11,7 @@ protected:
 	string TableName = "";
 	int nrCol = 0;
 	int* columns = nullptr;
-	DataTypes ColumnType = INTEGER;
+	DataTypes ColumnType = TEXT;
 public:
 	void setTableName(string name)
 	{
@@ -47,6 +45,15 @@ public:
 		this->setColumns(columns, nrCol);
 		this->setColumnType(ColumnType);
 	}
+	CreateTableCommand(CreateTableCommand& copy)
+	{
+		if (this != &copy)
+		{
+			this->setTableName(copy.TableName);
+			this->setColumns(copy.columns, copy.nrCol);
+			this->setColumnType(copy.ColumnType);
+		}
+	}
 	~CreateTableCommand() {
 		delete[] this->columns;
 	}
@@ -68,11 +75,12 @@ class ValidateCommandCreateTable : public ValidateCommands, public CreateTableCo
 private:
 
 public:
+	ValidateCommandCreateTable(CreateTableCommand v) : CreateTableCommand(v) {}
 	void ValidateCommand() {
 
 	}
 	void CommandType() {
-		if (this->ColumnType != INTEGER)		throw "Ceva";
+		if (this->ColumnType != INTEGER)	throw "e";
 		cout << this->ColumnType;
 	}
 };
@@ -81,17 +89,6 @@ int main()
 {
 	int vector1[2] = { 1, 2 };
 	CreateTableCommand Employees("Employees", 2, vector1, INTEGER);
-	ValidateCommandCreateTable table;
-	table.CommandType();
-
-
-
-
-
-
-
-
-
-
-
+	ValidateCommandCreateTable ValidateEmployees(Employees); //In this instance of the class we will validate the class provided by the user (CreateTableCommand)
+	ValidateEmployees.CommandType();
 }
